@@ -43,65 +43,74 @@ module.exports = {
    * are sent back to Facebook servers.
    */
   setFlushBehavior(flushBehavior: AppEventsFlushBehavior) {
-    AppEventsLogger.setFlushBehavior(flushBehavior);
-  },
+  AppEventsLogger.setFlushBehavior(flushBehavior);
+},
 
-  /**
-   * Logs an event with eventName and optional arguments.
-   * This function supports the following usage:
-   * logEvent(eventName: string);
-   * logEvent(eventName: string, valueToSum: number);
-   * logEvent(eventName: string, parameters: {[key:string]:string|number});
-   * logEvent(eventName: string, valueToSum: number, parameters: {[key:string]:string|number});
-   * See https://developers.facebook.com/docs/app-events/android for detail.
-   */
-  logEvent(eventName: string, ...args: Array<number | Params>) {
-    let valueToSum = 0;
-    if (typeof args[0] === 'number') {
-      valueToSum = args.shift();
-    }
-    let parameters = null;
-    if (typeof args[0] === 'object') {
-      parameters = args[0];
-    }
-    AppEventsLogger.logEvent(eventName, valueToSum, parameters);
-  },
+/**
+ * Logs an event with eventName and optional arguments.
+ * This function supports the following usage:
+ * logEvent(eventName: string);
+ * logEvent(eventName: string, valueToSum: number);
+ * logEvent(eventName: string, parameters: {[key:string]:string|number});
+ * logEvent(eventName: string, valueToSum: number, parameters: {[key:string]:string|number});
+ * See https://developers.facebook.com/docs/app-events/android for detail.
+ */
+logEvent(eventName: string, ...args: Array<number | Params>) {
+  let valueToSum = 0;
+  if (typeof args[0] === 'number') {
+    valueToSum = args.shift();
+  }
+  let parameters = null;
+  if (typeof args[0] === 'object') {
+    parameters = args[0];
+  }
+  AppEventsLogger.logEvent(eventName, valueToSum, parameters);
+},
 
-  /**
-   * Logs a purchase. See http://en.wikipedia.org/wiki/ISO_4217 for currencyCode.
-   */
-  logPurchase(purchaseAmount: number, currencyCode: string, parameters: ?Object) {
-    AppEventsLogger.logPurchase(purchaseAmount, currencyCode, parameters);
-  },
+/**
+ * Logs a purchase. See http://en.wikipedia.org/wiki/ISO_4217 for currencyCode.
+ */
+logPurchase(purchaseAmount: number, currencyCode: string, parameters: ?Object) {
+  AppEventsLogger.logPurchase(purchaseAmount, currencyCode, parameters);
+},
 
-  /**
-   * Logs an app event that tracks that the application was open via Push Notification.
-   */
-  logPushNotificationOpen(payload: ?Object) {
-    AppEventsLogger.logPushNotificationOpen(payload);
-  },
+/**
+ * Logs an app event that tracks that the application was open via Push Notification.
+ */
+logPushNotificationOpen(payload: ?Object) {
+  AppEventsLogger.logPushNotificationOpen(payload);
+},
 
-  /**
-   * Explicitly kicks off flushing of events to Facebook.
-   */
-  flush() {
-    AppEventsLogger.flush();
-  },
+/**
+ * Sets a custom user ID to associate with all app events.
+ * The userID is persisted until it is cleared by passing nil.
+ */
+setUserID(userID: string) {
+  AppEventsLogger.setUserID(userID);
+},
 
-  /**
-   * For iOS only, sets and sends device token to register the current application for push notifications.
-   * @platform ios
-   */
-  setPushNotificationsDeviceToken(deviceToken: string) {
-    AppEventsLogger.setPushNotificationsDeviceToken(deviceToken);
-  },
 
-   /**
-    * For Android only, sets and sends registration id to register the current app for push notifications.
-    * @platform Android
-    */
-  setPushNotificationsRegistrationId(registrationId: string) {
-    AppEventsLogger.setPushNotificationsRegistrationId(registrationId);
-  },
+/**
+ * Explicitly kicks off flushing of events to Facebook.
+ */
+flush() {
+  AppEventsLogger.flush();
+},
+
+/**
+ * For iOS only, sets and sends device token to register the current application for push notifications.
+ * @platform ios
+ */
+setPushNotificationsDeviceToken(deviceToken: string) {
+  AppEventsLogger.setPushNotificationsDeviceToken(deviceToken);
+},
+
+/**
+ * For Android only, sets and sends registration id to register the current app for push notifications.
+ * @platform Android
+ */
+setPushNotificationsRegistrationId(registrationId: string) {
+  AppEventsLogger.setPushNotificationsRegistrationId(registrationId);
+},
 
 };
